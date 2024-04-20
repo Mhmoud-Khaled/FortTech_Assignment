@@ -324,13 +324,8 @@ export class HomeComponent implements OnInit {
     this.rulesList.setValue([...event])
   }
 
-
-
-
-  onItemSelect(item: any) {
-    console.log(item);
+  submit() {
+    console.log(this.formGroup.value)
   }
-  onSelectAll(items: any) {
-    console.log(items);
-  }
+
 }

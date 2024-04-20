@@ -1,5 +1,5 @@
 <div class="header">
-  <div class="container">
+  <div class="container" [ngClass]="{'dark-mode': darkModeEnable, 'light-mode': !darkModeEnable}">
     <div class="user-section d-flex flex-row-reverse">
       <div class="image">
         <img src="assets/avatar.jpg" class="rounded-5 img-fluid" alt="profile">
@@ -8,7 +8,7 @@
         <h5 class="name">Mahmoud Khaled</h5>
         <h6 class="rule">Super Admin</h6>
       </div>
-      <button class="btn" style="color: white;">
+      <button class="btn" style="color: white;" (click)="toggleDarkMode()">
         <i class="fa fa-moon-o" aria-hidden="true"></i>
       </button>
     </div>

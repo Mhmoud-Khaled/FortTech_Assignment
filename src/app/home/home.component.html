@@ -57,7 +57,7 @@
                   <ng-multiselect-dropdown class="form-control"
                     [ngClass]="{'is-invalid': rulesList.invalid && rulesList.touched,'is-valid': rulesList.valid}"
                     formControlName="rulesList" [placeholder]="'select rules'" [settings]="RulesListSettings"
-                    [data]="RulesList" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)">
+                    [data]="RulesList">
                   </ng-multiselect-dropdown>
                   <div class="invalid-feedback" *ngIf="rulesList?.invalid">
                     This Field is required
@@ -556,7 +556,7 @@
           </select>
         </div>
         <div class="container d-flex flex-row-reverse">
-          <button class="btn btn-primary rounded-5 px-3 py-2 m-1">Save</button>
+          <button class="btn btn-primary rounded-5 px-3 py-2 m-1" (click)="submit()">Save</button>
           <button class="btn btn-danger rounded-5 px-3 py-2 m-1">Close</button>
         </div>
       </div>

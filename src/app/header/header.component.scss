@@ -1,11 +1,24 @@
 .header {
 
   .container {
-    background-color: #1b356a;
     border-radius: 10px;
+    box-shadow: 0px 4px 10px 7px #e0e0e0;
+
+    &.dark-mode {
+      background-color: #1b356a;
+      color: #fff;
+    }
+
+    &.light-mode {
+      background-color: #fff;
+      color: #000;
+
+      i {
+        color: #000;
+      }
+    }
 
     .user-section {
-      color: white;
       align-items: center;
       gap: 10px;
       padding: 10px 2px;

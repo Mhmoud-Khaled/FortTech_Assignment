@@ -7,4 +7,10 @@ import { Component } from '@angular/core';
 })
 export class HeaderComponent {
 
+  darkModeEnable: boolean = true
+
+  toggleDarkMode() {
+    this.darkModeEnable = !this.darkModeEnable;
+  }
+
 }
