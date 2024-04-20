@@ -1,0 +1,585 @@
+<div class="container py-5">
+  <div class="header d-flex">
+    <h2 class="title">
+      Create Department Business Rules
+    </h2>
+    <div class="links">
+      <a href="#" class="link-info">Dashboard</a> >
+      <a href="#" class="link-info">Business Rules</a> <br>
+      <a href="#" class="active">Create Department Business Rules</a>
+    </div>
+  </div>
+  <form [formGroup]="formGroup">
+    <div class="card">
+      <button class="btn btn-primary text-start card-header collapseBtn" type="button" data-bs-toggle="collapse"
+        data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+        <i class="fa fa-plus" aria-hidden="true"></i>
+        Craete Department Business Rules
+      </button>
+      <div class="card-body collapse" id="collapseExample">
+        <div class="inner-container">
+          <div class="card">
+            <h5 class="card-header title">Department Business Rules</h5>
+            <div class="card-body">
+              <div class="row mb-2">
+                <div class="col-sm-3">
+                  <label for="Rule" class="required form-label">Rule Name:</label>
+                </div>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control"
+                    [ngClass]="{'is-invalid': ruleName?.invalid && ruleName?.touched,'is-valid': ruleName?.valid}"
+                    id="Rule" formControlName="ruleName">
+                  <div class="invalid-feedback" *ngIf=" ruleName?.invalid">
+                    This Field is required
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-2">
+                <div class="col-sm-3">
+                  <label for="Departments" class="required form-label">Departments:</label>
+                </div>
+                <div class="col-sm-9">
+                  <mat-select class="form-control"
+                    [ngClass]="{'is-invalid': departments?.invalid && departments?.touched,'is-valid': departments?.valid}"
+                    mat-fab formControlName="departments" placeholder="Select Departments">
+                    <mat-option>None</mat-option>
+                    @for (dept of departmentsList; track dept) {
+                    <mat-option [value]="dept">{{dept}}</mat-option>
+                    }
+                  </mat-select>
+                  <div class="invalid-feedback" *ngIf="departments?.invalid">
+                    This Field is required
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-2">
+                <div class="col-sm-3">
+                  <label for="RuleList" class="required form-label">Rules List:</label>
+                </div>
+                <div class="col-sm-9">
+                  <mat-select class="form-control muti-select"
+                    [ngClass]="{'is-invalid': rulesList.invalid && rulesList.touched,'is-valid': rulesList.valid}"
+                    role="combobox" id="RuleList" mat-fab formControlName="rulesList" multiple
+                    placeholder="Select Rules" (valueChange)="changeRulesList($event)">
+                    @for (Rule of RulesList; track Rule) {
+                    <mat-option [value]="Rule">{{Rule}}</mat-option>
+                    }
+                  </mat-select>
+                  <div class="invalid-feedback" *ngIf="rulesList?.invalid">
+                    This Field is required
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-2">
+                <div class="col-sm-3">
+                  <label for="RuleList" class="required form-label">Rules List:</label>
+                </div>
+                <div class="col-sm-9">
+                  <ng-multiselect-dropdown class="form-control"
+                    [ngClass]="{'is-invalid': rulesList.invalid && rulesList.touched,'is-valid': rulesList.valid}"
+                    formControlName="rulesList" [placeholder]="'custom placeholder'" [settings]="dropdownSettings"
+                    [data]="dropdownList" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)">
+                  </ng-multiselect-dropdown>
+                  <div class="invalid-feedback" *ngIf="rulesList?.invalid">
+                    This Field is required
+                  </div>
+                </div>
+              </div>
+              <hr>
+              <ng-container *ngFor="let item of rulesList.value">
+                <div class="row mb-2 section" *ngIf="item.item_text === RulesListEnum.SET_TIMES_NEAREST_MINUTE"
+                  formGroupName="setTime">
+                  <div class="col-md-3">
+                    <label [for]="item.item_text" class="item-label form-label">{{item.item_text}} :</label>
+                  </div>
+                  <div class="col-md-9">
+                    <div class="row align-items-center">
+                      <div class="col-md-4">
+                        <select class="form-select form-select-sm" formControlName="setTimeFlag"
+                          aria-label="Small select example">
+                          <option value="not-selected">--select--</option>
+                          <option value="yes">Yes</option>
+                          <option value="no">No</option>
+                        </select>
+                      </div>
+                      <div class="col-md-4" *ngIf="setTimeFlag?.value ==='yes'">
+                        <div class="row">
+                          <div class="col-lg-6 col-md-12 col-sm-6">
+                            <label class="required form-label inner-label">Minutes: </label>
+                          </div>
+                          <div class="col-lg-6 col-md-12 col-sm-6">
+                            <input class="form-control form-control-sm" type="number" formControlName="setTimeMinute"
+                              [ngClass]="{'is-invalid': setTimeMinute?.invalid && setTimeMinute?.touched,'is-valid': setTimeMinute?.valid && setTimeMinute?.touched}"
+                              aria-label=".form-control-sm example">
+                            <!-- <div class="invalid-feedback inner-invalid" *ngIf=" setTimeMinute?.errors">
+                              This Field is required
+                            </div>
+                            <div class="invalid-feedback inner-invalid" *ngIf=" setTimeMinute?.validator">
+                              Invalid Minutes Value
+                            </div> -->
+                          </div>
+
+                        </div>
+                      </div>
+                      <div class="col-md-4" *ngIf="setTimeFlag?.value ==='yes'">
+                        <div class="row">
+                          <div class="col-lg-6 col-md-12 col-sm-6">
+                            <label class="form-label inner-label">Direction: </label>
+                          </div>
+                          <div class="col-lg-6 col-md-12 col-sm-6">
+                            <select class="form-select form-select-sm" aria-label="Small select example"
+                              formControlName="setTimeDirection">
+                              <option value="not-selected">--select--</option>
+                              <option value="up">UP</option>
+                              <option value="down">Down</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row mb-2 section" *ngIf="item === RulesListEnum.FLAG_NOT_ROstered">
+                  <div class="col-md-3">
+                    <label [for]="item" class="item-label form-label">{{item}} :</label>
+                  </div>
+                  <div class="col-md-9">
+                    <div class="row align-items-center">
+                      <div class="col-md-4 ">
+                        <select class="form-select form-select-sm" aria-label="Small select" formControlName="flag">
+                          <option value="not-selected">--select--</option>
+                          <option value="error">Error</option>
+                          <option value="wronging">Wronging</option>
+                          <option value="N/A">N/A</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row mb-2 section" *ngIf="item === RulesListEnum.CLOCK_IN_BEFORE_SHIFT"
+                  formGroupName="clockIn">
+                  <div class="col-md-3">
+                    <label [for]="item" class="item-label form-label">{{item}} :</label>
+                  </div>
+                  <div class="col-md-9">
+                    <div class="row align-items-center">
+                      <div class="col-md-4">
+                        <select class="form-select form-select-sm" aria-label="Small select"
+                          formControlName="clockInFlag">
+                          <option value="not-selected">--select--</option>
+                          <option value="error">Error</option>
+                          <option value="wronging">Wronging</option>
+                          <option value="N/A">N/A</option>
+                        </select>
+                      </div>
+                      <div class="col-md-7"
+                        *ngIf="clockIn?.get('clockInFlag')?.value === 'error' || clockIn?.get('clockInFlag')?.value === 'wronging'">
+                        <div class="row">
+                          <div class="col-6">
+                            <label class="required form-label inner-label">Minutes: </label>
+                          </div>
+                          <div class="col-6">
+                            <input class="form-control form-control-sm"
+                              [ngClass]="{'is-invalid': clockIn?.get('clockInMinutes')?.invalid && clockIn?.get('clockInMinutes')?.touched,
+                              'is-valid': clockIn?.get('clockInMinutes')?.valid && clockIn?.get('clockInMinutes')?.touched}" formControlName="clockInMinutes"
+                              type="number" aria-label=".form-control-sm">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row mb-2 section" *ngIf="item === RulesListEnum.CLOCK_OUT_BEFORE_SHIFT"
+                  formGroupName="clockOut">
+                  <div class="col-md-3">
+                    <label [for]="item" class="item-label form-label">{{item}} :</label>
+                  </div>
+                  <div class="col-md-9">
+                    <div class="row align-items-center">
+                      <div class="col-md-4">
+                        <select class="form-select form-select-sm" aria-label="Small select"
+                          formControlName="clockOutFlag">
+                          <option value="not-selected">--select--</option>
+                          <option value="error">Error</option>
+                          <option value="wronging">Wronging</option>
+                          <option value="N/A">N/A</option>
+                        </select>
+                      </div>
+                      <div class="col-md-7"
+                        *ngIf="clockOut?.get('clockOutFlag')?.value === 'error' || clockOut?.get('clockOutFlag')?.value === 'wronging'">
+                        <div class="row">
+                          <div class="col-6">
+                            <label class="required form-label inner-label">Minutes: </label>
+                          </div>
+                          <div class="col-6">
+                            <input class="form-control form-control-sm"
+                              [ngClass]="{'is-invalid': clockOut?.get('clockOutMinutes')?.invalid && clockOut?.get('clockOutMinutes')?.touched,
+                              'is-valid': clockOut?.get('clockOutMinutes')?.valid && clockOut?.get('clockOutMinutes')?.touched}"
+                              formControlName="clockOutMinutes" type="number" aria-label=".form-control-sm">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row mb-2 section" *ngIf="item === RulesListEnum.ADJUST_START_SHIFT_BEFORE"
+                  formGroupName="adjustStartBefore">
+                  <div class="col-md-3">
+                    <label [for]="item" class="item-label form-label">{{item}} :</label>
+                  </div>
+                  <div class="col-md-9">
+                    <div class="row align-items-center">
+                      <div class="col-md-4">
+                        <select class="form-select form-select-sm" aria-label="Small select"
+                          formControlName="adjustFlag">
+                          <option value="not-selected">--select--</option>
+                          <option value="yes">Yes</option>
+                          <option value="No">No</option>
+                        </select>
+                      </div>
+                      <div class="col-md-7" *ngIf="adjustStartBefore?.get('adjustFlag')?.value === 'yes'">
+                        <div class="row">
+                          <div class="col-6">
+                            <label class="required form-label inner-label">Minutes: </label>
+                          </div>
+                          <div class="col-6">
+                            <input class="form-control form-control-sm" [ngClass]="{'is-invalid': adjustStartBefore?.get('adjustMinutes')?.invalid && adjustStartBefore?.get('adjustMinutes')?.touched,
+                            'is-valid': adjustStartBefore?.get('adjustMinutes')?.valid}" type="number" min="0"
+                              formControlName="adjustMinutes" aria-label=".form-control-sm example">
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row mb-2 section" *ngIf="item === RulesListEnum.ADJUST_START_SHIFT_AFTER"
+                  formGroupName="adjustStartAfter">
+                  <div class="col-md-3">
+                    <label [for]="item" class="item-label form-label">{{item}} :</label>
+                  </div>
+                  <div class="col-md-9">
+                    <div class="row align-items-center">
+                      <div class="col-md-4">
+                        <select class="form-select form-select-sm" aria-label="Small select"
+                          formControlName="adjustFlag">
+                          <option value="not-selected">--select--</option>
+                          <option value="yes">Yes</option>
+                          <option value="No">No</option>
+                        </select>
+                      </div>
+                      <div class="col-md-7" *ngIf="adjustStartAfter?.get('adjustFlag')?.value === 'yes'">
+                        <div class="row">
+                          <div class="col-6">
+                            <label class="required form-label inner-label">Minutes: </label>
+                          </div>
+                          <div class="col-6">
+                            <input class="form-control form-control-sm" [ngClass]="{'is-invalid': adjustStartAfter?.get('adjustMinutes')?.invalid && adjustStartAfter?.get('adjustMinutes')?.touched,
+                            'is-valid': adjustStartAfter?.get('adjustMinutes')?.valid}" type="number" min="0"
+                              formControlName="adjustMinutes" aria-label=".form-control-sm example">
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row mb-2 section" *ngIf="item === RulesListEnum.ADJUST_END_SHIFT_BEFORE"
+                  formGroupName="adjustEndBefore">
+                  <div class="col-md-3">
+                    <label [for]="item" class="item-label form-label">{{item}} :</label>
+                  </div>
+                  <div class="col-md-9">
+                    <div class="row align-items-center">
+                      <div class="col-md-4">
+                        <select class="form-select form-select-sm" aria-label="Small select"
+                          formControlName="adjustFlag">
+                          <option value="not-selected">--select--</option>
+                          <option value="yes">Yes</option>
+                          <option value="No">No</option>
+                        </select>
+                      </div>
+                      <div class="col-md-7" *ngIf="adjustEndBefore?.get('adjustFlag')?.value === 'yes'">
+                        <div class="row">
+                          <div class="col-6">
+                            <label class="required form-label inner-label">Minutes: </label>
+                          </div>
+                          <div class="col-6">
+                            <input class="form-control form-control-sm" [ngClass]="{'is-invalid': adjustEndBefore?.get('adjustMinutes')?.invalid && adjustEndBefore?.get('adjustMinutes')?.touched,
+                            'is-valid': adjustEndBefore?.get('adjustMinutes')?.valid}" type="number" min="0"
+                              formControlName="adjustMinutes" aria-label=".form-control-sm">
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row mb-2 section" *ngIf="item === RulesListEnum.ADJUST_END_SHIFT_BEFORE"
+                  formGroupName="adjustEndAfter">
+                  <div class="col-md-3">
+                    <label [for]="item" class="item-label form-label">{{item}} :</label>
+                  </div>
+                  <div class="col-md-9">
+                    <div class="row align-items-center">
+                      <div class="col-md-4">
+                        <select class="form-select form-select-sm" aria-label="Small select"
+                          formControlName="adjustFlag">
+                          <option value="not-selected">--select--</option>
+                          <option value="yes">Yes</option>
+                          <option value="No">No</option>
+                        </select>
+                      </div>
+                      <div class="col-md-7" *ngIf="adjustEndAfter?.get('adjustFlag')?.value === 'yes'">
+                        <div class="row">
+                          <div class="col-6">
+                            <label class="required form-label inner-label">Minutes: </label>
+                          </div>
+                          <div class="col-6">
+                            <input class="form-control form-control-sm" [ngClass]="{'is-invalid': adjustEndAfter?.get('adjustMinutes')?.invalid && adjustEndAfter?.get('adjustMinutes')?.touched,
+                            'is-valid': adjustEndAfter?.get('adjustMinutes')?.valid}" type="number" min="0"
+                              formControlName="adjustMinutes" aria-label=".form-control-sm">
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row mb-2 section" *ngIf="item === RulesListEnum.WARN_PUNCH_COUNT">
+                  <div class="col-12 d-flex">
+                    <div class="item-label form-label">Warn if punches are more than
+                      <input type="number" class="form-control inner-input" formControlName="warnPunchCount" [ngClass]="{'is-invalid': warnPunchCount?.invalid && warnPunchCount?.touched,
+                            'is-valid': warnPunchCount?.valid}"> <span>per
+                        day:</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="row mb-2 section" *ngIf="item === RulesListEnum.CALCULATE_OVERTIME"
+                  formGroupName="overTime">
+                  <div class="col-md-3">
+                    <label [for]="item" class="item-label form-label">{{item}} :</label>
+                  </div>
+                  <div class="col-md-9">
+                    <div class="row align-items-center">
+                      <div class="col-md-4">
+                        <select class="form-select form-select-sm" aria-label="Small select"
+                          formControlName="overTimeFlag">
+                          <option value="not-selected">--select--</option>
+                          <option value="weekly">Weekly</option>
+                          <option value="daily">Daily</option>
+                        </select>
+                      </div>
+                      <div class="col-md-8" *ngIf="overTime?.get('overTimeFlag')?.value  !== 'not-selected'">
+                        <div class="row">
+                          <div class="col-md-6">
+                            <label class="required form-label inner-label">After how many hours: </label>
+                          </div>
+                          <div class="col-md-6">
+                            <input class="form-control form-control-sm" type="number" min="0"
+                              aria-label=".form-control-sm" formControlName="overTimeMinutes" [ngClass]="{'is-invalid': overTime?.get('overTimeMinutes')?.invalid && overTime?.get('overTimeMinutes')?.touched,
+                            'is-valid': overTime?.get('overTimeMinutes')?.valid}">
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row mb-2 section" *ngIf="item === RulesListEnum.PUNCHES_LUNCH" formGroupName="punchesLunch">
+                  <div class="col-md-3">
+                    <label [for]="item" class="item-label form-label">{{item}} :</label>
+                  </div>
+                  <div class="col-md-9">
+                    <div class="row align-items-center">
+                      <div class="col-md-4 ">
+                        <select class="form-select form-select-sm" aria-label="Small select"
+                          formControlName="punchesLunchFlag">
+                          <option value="not-selected">--select--</option>
+                          <option value="yes">Yes</option>
+                          <option value="no">No</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-3 col-md-4 col-sm-6"
+                    *ngIf="punchesLunch?.get('punchesLunchFlag')?.value === 'yes'">
+                    <label class="inner-label form-label required">Minutes For Lunch</label>
+                    <input type="number" class="form-control" formControlName="punchesLunchMinutes" [ngClass]="{'is-invalid': punchesLunch?.get('punchesLunchMinutes')?.invalid && punchesLunch?.get('punchesLunchMinutes')?.touched,
+                            'is-valid': punchesLunch?.get('punchesLunchMinutes')?.valid}">
+                  </div>
+                  <div class="col-lg-3 col-md-4 col-sm-6"
+                    *ngIf="punchesLunch?.get('punchesLunchFlag')?.value === 'yes'">
+                    <label class="inner-label form-label required">Warn if no lunch break taken</label>
+                    <select class="form-select form-select-sm" formControlName="noLunchBreakTaken"
+                      aria-label="Small select">
+                      <option value="not-selected">--select--</option>
+                      <option value="yes">Yes</option>
+                      <option value="No">No</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-3 col-md-4 col-sm-6"
+                    *ngIf="punchesLunch?.get('punchesLunchFlag')?.value === 'yes'">
+                    <label class="inner-label form-label required">Warn if lunch break is more than</label>
+                    <input type="number" class="form-control" formControlName="lunchBreakMoreThan" [ngClass]="{'is-invalid': punchesLunch?.get('lunchBreakMoreThan')?.invalid && punchesLunch?.get('lunchBreakMoreThan')?.touched,
+                            'is-valid': punchesLunch?.get('lunchBreakMoreThan')?.valid}">
+                  </div>
+                  <div class="col-lg-3 col-md-4 col-sm-6"
+                    *ngIf="punchesLunch?.get('punchesLunchFlag')?.value === 'yes'">
+                    <label class="inner-label form-label required">Warn if lunch break is less than</label>
+                    <input type="number" class="form-control" formControlName="lunchBreakLessThan" [ngClass]="{'is-invalid': punchesLunch?.get('lunchBreakLessThan')?.invalid && punchesLunch?.get('lunchBreakLessThan')?.touched,
+                            'is-valid': punchesLunch?.get('lunchBreakLessThan')?.valid}">
+                  </div>
+                </div>
+                <div class="row mb-2 section" *ngIf="item === RulesListEnum.TAKE_OUT_LUNCH"
+                  formGroupName="takeOutLunch">
+                  <div class="col-md-3">
+                    <label [for]="item" class="item-label form-label">{{item}} :</label>
+                  </div>
+                  <div class="col-md-9">
+                    <div class="row align-items-center">
+                      <div class="col-md-4">
+                        <select class="form-select form-select-sm" aria-label="Small select" formControlName="Flag">
+                          <option value="not-selected">--select--</option>
+                          <option value="yes">Yes</option>
+                          <option value="No">No</option>
+                        </select>
+                      </div>
+                      <div class="col-md-7" *ngIf="takeOutLunch?.get('Flag')?.value === 'yes'">
+                        <div class="row">
+                          <div class="col-6">
+                            <label class="required form-label inner-label">Minutes: </label>
+                          </div>
+                          <div class="col-6">
+                            <input class="form-control form-control-sm" type="number" min="0"
+                              aria-label=".form-control-sm" formControlName="Minutes" [ngClass]="{'is-invalid': takeOutLunch?.get('Minutes')?.invalid && takeOutLunch?.get('Minutes')?.touched,
+                              'is-valid': takeOutLunch?.get('Minutes')?.valid}">
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row mb-2 section" *ngIf="item === RulesListEnum.INSERT_PUNCH_ROSTER">
+                  <div class="col-md-3">
+                    <label [for]="item" class="item-label form-label">{{item}} :</label>
+                  </div>
+                  <div class="col-md-9">
+                    <div class="row align-items-center">
+                      <div class="col-md-4 ">
+                        <select class="form-select form-select-sm" aria-label="Small select"
+                          formControlName="insertPunchRoster">
+                          <option value="not-selected">--select--</option>
+                          <option value="yes">Yes</option>
+                          <option value="no">No</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row mt-2" *ngIf="insertPunchRoster?.value==='yes'">
+                    <div class="table-responsive">
+                      <table class="table text-center">
+                        <tbody>
+                          <tr class="text-center">
+                            <td class="table-header" style="width: 50%;">Reason</td>
+                            <td class="table-header">Start Time</td>
+                            <td class="table-header">End Time</td>
+                            <td class="table-header">Action</td>
+                          </tr>
+                          <tr formGroupName="reasonGroup">
+                            <td>
+                              <select class="form-select form-select-sm" aria-label="Small select"
+                                formControlName="reason">
+                                <option value="not-selected">--select--</option>
+                                <option *ngFor="let reason of ReasonsList" [value]="reason">{{reason}}</option>
+                              </select>
+                            </td>
+                            <td><input type="time" class="form-control" formControlName="startTime"></td>
+                            <td><input type="time" class="form-control" formControlName="endTime"></td>
+                            <td><button class="btn btn-primary" (click)="addReason()" [disabled]="addButtonDisabled"><i
+                                  class="fa fa-plus" aria-hidden="true"></i></button>
+                            </td>
+                          </tr>
+                          <ng-container formArrayName="reasonArray">
+                            <tr *ngFor="let reasonGroup of reasonArray.controls; let i = index">
+                              <ng-container [formGroupName]="i">
+                                <td>
+                                  <div class="alert alert-secondary" role="alert">
+                                    {{reasonGroup.get('reason')?.value}}
+                                  </div>
+                                </td>
+                                <td class="reason">{{reasonGroup.get('startTime')?.value}}</td>
+                                <td class="reason">{{reasonGroup.get('endTime')?.value}}</td>
+                                <td>
+                                  <button type="button" class="btn" (click)="removeReason(i)"><i class="fa fa-trash-o"
+                                      aria-hidden="true"></i></button>
+                                </td>
+                              </ng-container>
+                            </tr>
+                          </ng-container>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+                <div class="row mb-2 section" *ngIf="item === RulesListEnum.PAY_PUBLIC_HOLIDAY"
+                  formGroupName="payPublicHoliday">
+                  <div class="col-md-3">
+                    <label [for]="item" class="item-label form-label">{{item}} :</label>
+                  </div>
+                  <div class="col-md-9">
+                    <div class="row align-items-center">
+                      <div class="col-md-4 ">
+                        <select class="form-select form-select-sm" aria-label="Small select" formControlName="Flag">
+                          <option value="not-selected">--select--</option>
+                          <option value="yes">Yes</option>
+                          <option value="no">No</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-3 col-md-4 col-sm-6" *ngIf="payPublicHoliday?.get('Flag')?.value === 'yes'">
+                    <label class="inner-label form-label required">Start Time</label>
+                    <input type="time" class="form-control" formControlName="StartTime" />
+                  </div>
+                  <div class="col-lg-3 col-md-4 col-sm-6" *ngIf="payPublicHoliday?.get('Flag')?.value === 'yes'">
+                    <label class="inner-label form-label required">End Time</label>
+                    <input type="time" class="form-control" formControlName="EndTime">
+                  </div>
+                  <div class="col-lg-3 col-md-4 col-sm-6" *ngIf="payPublicHoliday?.get('Flag')?.value === 'yes'">
+                    <label class="inner-label form-label required">Days</label>
+                    <select class="form-select form-select-sm" aria-label="Small select" formControlName="Days">
+                      <option value="not-selected">--select--</option>
+                      <option value="before">Days Before</option>
+                      <option value="after">Days After</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-3 col-md-4 col-sm-6" *ngIf="payPublicHoliday?.get('Flag')?.value === 'yes'">
+                    <label class="inner-label form-label required">Pay Rate</label>
+                    <select class="form-select form-select-sm" aria-label="Small select" formControlName="Rate">
+                      <option value="not-selected">--select--</option>
+                      <option selected value="x1.5">x1.5</option>
+                    </select>
+                  </div>
+                </div>
+              </ng-container>
+
+            </div>
+          </div>
+
+        </div>
+        <div class="status d-flex  gap-5 my-3">
+          <div>Status:</div>
+          <select class="form-select" aria-label="Disabled select example" disabled>
+            <option selected>Active</option>
+          </select>
+        </div>
+        <div class="d-flex flex-row-reverse">
+          <button class="btn btn-primary rounded-5 px-3 py-2 m-1">Save</button>
+          <button class="btn btn-danger rounded-5 px-3 py-2 m-1">Close</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
