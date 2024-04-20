@@ -39,6 +39,21 @@
                   <label for="Departments" class="required form-label">Departments:</label>
                 </div>
                 <div class="col-sm-9">
+                  <ng-multiselect-dropdown class="form-control"
+                    [ngClass]="{'is-invalid': departments?.invalid && departments?.touched,'is-valid': departments?.valid}"
+                    formControlName="departments" [placeholder]="'select department'"
+                    [settings]="departmentsListSettings" [data]="departmentsList">
+                  </ng-multiselect-dropdown>
+                  <div class="invalid-feedback" *ngIf="departments?.invalid">
+                    This Field is required
+                  </div>
+                </div>
+              </div>
+              <!-- <div class="row mb-2">
+                <div class="col-sm-3">
+                  <label for="Departments" class="required form-label">Departments:</label>
+                </div>
+                <div class="col-sm-9">
                   <mat-select class="form-control"
                     [ngClass]="{'is-invalid': departments?.invalid && departments?.touched,'is-valid': departments?.valid}"
                     mat-fab formControlName="departments" placeholder="Select Departments">
@@ -51,8 +66,8 @@
                     This Field is required
                   </div>
                 </div>
-              </div>
-              <div class="row mb-2">
+              </div> -->
+              <!-- <div class="row mb-2">
                 <div class="col-sm-3">
                   <label for="RuleList" class="required form-label">Rules List:</label>
                 </div>
@@ -69,7 +84,7 @@
                     This Field is required
                   </div>
                 </div>
-              </div>
+              </div> -->
               <div class="row mb-2">
                 <div class="col-sm-3">
                   <label for="RuleList" class="required form-label">Rules List:</label>
@@ -77,8 +92,8 @@
                 <div class="col-sm-9">
                   <ng-multiselect-dropdown class="form-control"
                     [ngClass]="{'is-invalid': rulesList.invalid && rulesList.touched,'is-valid': rulesList.valid}"
-                    formControlName="rulesList" [placeholder]="'custom placeholder'" [settings]="dropdownSettings"
-                    [data]="dropdownList" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)">
+                    formControlName="rulesList" [placeholder]="'select rules'" [settings]="RulesListSettings"
+                    [data]="RulesList" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)">
                   </ng-multiselect-dropdown>
                   <div class="invalid-feedback" *ngIf="rulesList?.invalid">
                     This Field is required

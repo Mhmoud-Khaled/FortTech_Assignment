@@ -1,4 +1,4 @@
-export enum RulesList {
+export enum RulesListEnum {
   SET_TIMES_NEAREST_MINUTE = "Set Times To The Nearest Minutes",
   FLAG_NOT_ROstered = "Flag If Not Rostered To Work Today",
   CLOCK_IN_BEFORE_SHIFT = "Clock In Before The Start Of Shift",

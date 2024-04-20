@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { RulesList } from '../settings/data.Enum';
+import { RulesListEnum } from '../settings/data.Enum';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 
 @Component({
@@ -10,25 +10,17 @@ import { IDropdownSettings } from 'ng-multiselect-dropdown';
 })
 export class HomeComponent implements OnInit {
 
-  departmentsList: string[] = ['dept1', 'dept2', 'dept3', 'dept4', 'dept5', 'dept6']
-  RulesList: string[] = [
-    "Set Times To The Nearest Minutes",
-    "Flag If Not Rostered To Work Today",
-    "Clock In Before The Start Of Shift",
-    "Clock Out Before The End Of Shift",
-    "Adjust To Start Of Shift If Clocked In Before Start Of Shift",
-    "Adjust To Start Of Shift. If Clocked In After Start Of Shift",
-    "Adjust. To End Of Shift If Clocked Out Before End Of Shift",
-    "Adjust To End Of Shift. If Clocked Out After End Of Shift",
-    "Warn If Punches Are More Than Per Day",
-    "Calculate Overtime",
-    "Punches In Out For Lunch",
-    "Take Out Lunch Automatically",
-    "Insert Punch For Roster Reason",
-    "Pay For Public Holidays If Worked The Day Before Or After"
-  ];
+  // departmentsList: string[] = ['dept1', 'dept2', 'dept3', 'dept4', 'dept5', 'dept6']
+  departmentsList: any = [
+    { item_id: 1, item_text: 'dept1' },
+    { item_id: 2, item_text: 'dept2' },
+    { item_id: 3, item_text: 'dept3' },
+    { item_id: 4, item_text: 'dept4' },
+    { item_id: 5, item_text: 'dept5' },
+    { item_id: 6, item_text: 'dept6' }
+  ]
 
-  dropdownList: any = [
+  RulesList: any = [
     { item_id: 1, item_text: 'Set Times To The Nearest Minutes' },
     { item_id: 2, item_text: 'Flag If Not Rostered To Work Today' },
     { item_id: 3, item_text: 'Clock In Before The Start Of Shift' },
@@ -44,7 +36,17 @@ export class HomeComponent implements OnInit {
     { item_id: 13, item_text: 'Insert Punch For Roster Reason' },
     { item_id: 14, item_text: 'Pay For Public Holidays If Worked The Day Before Or After' },
   ];
-  dropdownSettings: IDropdownSettings = {
+
+  departmentsListSettings: IDropdownSettings = {
+    singleSelection: true,
+    idField: 'item_id',
+    textField: 'item_text',
+    selectAllText: 'Select All',
+    unSelectAllText: 'UnSelect All',
+    allowSearchFilter: false,
+    enableCheckAll: false
+  };
+  RulesListSettings: IDropdownSettings = {
     singleSelection: false,
     idField: 'item_id',
     textField: 'item_text',
@@ -66,7 +68,7 @@ export class HomeComponent implements OnInit {
 
   formGroup!: FormGroup
 
-  RulesListEnum = RulesList;
+  RulesListEnum = RulesListEnum;
   addButtonDisabled = true
 
   constructor(private formBuilder: FormBuilder) {
