@@ -5,6 +5,13 @@
     .title {
       max-width: 40%;
       font-weight: 400;
+
+    }
+
+    @media(max-width:769px) {
+      .title {
+        font-size: 20px;
+      }
     }
 
     .links {

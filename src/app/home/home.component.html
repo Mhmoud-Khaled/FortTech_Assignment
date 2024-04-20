@@ -49,42 +49,6 @@
                   </div>
                 </div>
               </div>
-              <!-- <div class="row mb-2">
-                <div class="col-sm-3">
-                  <label for="Departments" class="required form-label">Departments:</label>
-                </div>
-                <div class="col-sm-9">
-                  <mat-select class="form-control"
-                    [ngClass]="{'is-invalid': departments?.invalid && departments?.touched,'is-valid': departments?.valid}"
-                    mat-fab formControlName="departments" placeholder="Select Departments">
-                    <mat-option>None</mat-option>
-                    @for (dept of departmentsList; track dept) {
-                    <mat-option [value]="dept">{{dept}}</mat-option>
-                    }
-                  </mat-select>
-                  <div class="invalid-feedback" *ngIf="departments?.invalid">
-                    This Field is required
-                  </div>
-                </div>
-              </div> -->
-              <!-- <div class="row mb-2">
-                <div class="col-sm-3">
-                  <label for="RuleList" class="required form-label">Rules List:</label>
-                </div>
-                <div class="col-sm-9">
-                  <mat-select class="form-control muti-select"
-                    [ngClass]="{'is-invalid': rulesList.invalid && rulesList.touched,'is-valid': rulesList.valid}"
-                    role="combobox" id="RuleList" mat-fab formControlName="rulesList" multiple
-                    placeholder="Select Rules" (valueChange)="changeRulesList($event)">
-                    @for (Rule of RulesList; track Rule) {
-                    <mat-option [value]="Rule">{{Rule}}</mat-option>
-                    }
-                  </mat-select>
-                  <div class="invalid-feedback" *ngIf="rulesList?.invalid">
-                    This Field is required
-                  </div>
-                </div>
-              </div> -->
               <div class="row mb-2">
                 <div class="col-sm-3">
                   <label for="RuleList" class="required form-label">Rules List:</label>
@@ -102,8 +66,8 @@
               </div>
               <hr>
               <ng-container *ngFor="let item of rulesList.value">
-                <div class="row mb-2 section" *ngIf="item.item_text === RulesListEnum.SET_TIMES_NEAREST_MINUTE"
-                  formGroupName="setTime">
+                <div class="row mb-2 section"
+                  *ngIf="item.item_text.item_text === RulesListEnum.SET_TIMES_NEAREST_MINUTE" formGroupName="setTime">
                   <div class="col-md-3">
                     <label [for]="item.item_text" class="item-label form-label">{{item.item_text}} :</label>
                   </div>
@@ -154,9 +118,9 @@
                     </div>
                   </div>
                 </div>
-                <div class="row mb-2 section" *ngIf="item === RulesListEnum.FLAG_NOT_ROstered">
+                <div class="row mb-2 section" *ngIf="item.item_text== RulesListEnum.FLAG_NOT_ROstered">
                   <div class="col-md-3">
-                    <label [for]="item" class="item-label form-label">{{item}} :</label>
+                    <label [for]="item.item_text" class="item-label form-label">{{item.item_text}} :</label>
                   </div>
                   <div class="col-md-9">
                     <div class="row align-items-center">
@@ -171,10 +135,10 @@
                     </div>
                   </div>
                 </div>
-                <div class="row mb-2 section" *ngIf="item === RulesListEnum.CLOCK_IN_BEFORE_SHIFT"
+                <div class="row mb-2 section" *ngIf="item.item_text== RulesListEnum.CLOCK_IN_BEFORE_SHIFT"
                   formGroupName="clockIn">
                   <div class="col-md-3">
-                    <label [for]="item" class="item-label form-label">{{item}} :</label>
+                    <label [for]="item.item_text" class="item-label form-label">{{item.item_text}} :</label>
                   </div>
                   <div class="col-md-9">
                     <div class="row align-items-center">
@@ -204,10 +168,10 @@
                     </div>
                   </div>
                 </div>
-                <div class="row mb-2 section" *ngIf="item === RulesListEnum.CLOCK_OUT_BEFORE_SHIFT"
+                <div class="row mb-2 section" *ngIf="item.item_text== RulesListEnum.CLOCK_OUT_BEFORE_SHIFT"
                   formGroupName="clockOut">
                   <div class="col-md-3">
-                    <label [for]="item" class="item-label form-label">{{item}} :</label>
+                    <label [for]="item.item_text" class="item-label form-label">{{item.item_text}} :</label>
                   </div>
                   <div class="col-md-9">
                     <div class="row align-items-center">
@@ -237,10 +201,10 @@
                     </div>
                   </div>
                 </div>
-                <div class="row mb-2 section" *ngIf="item === RulesListEnum.ADJUST_START_SHIFT_BEFORE"
+                <div class="row mb-2 section" *ngIf="item.item_text== RulesListEnum.ADJUST_START_SHIFT_BEFORE"
                   formGroupName="adjustStartBefore">
                   <div class="col-md-3">
-                    <label [for]="item" class="item-label form-label">{{item}} :</label>
+                    <label [for]="item.item_text" class="item-label form-label">{{item.item_text}} :</label>
                   </div>
                   <div class="col-md-9">
                     <div class="row align-items-center">
@@ -268,10 +232,10 @@
                     </div>
                   </div>
                 </div>
-                <div class="row mb-2 section" *ngIf="item === RulesListEnum.ADJUST_START_SHIFT_AFTER"
+                <div class="row mb-2 section" *ngIf="item.item_text== RulesListEnum.ADJUST_START_SHIFT_AFTER"
                   formGroupName="adjustStartAfter">
                   <div class="col-md-3">
-                    <label [for]="item" class="item-label form-label">{{item}} :</label>
+                    <label [for]="item.item_text" class="item-label form-label">{{item.item_text}} :</label>
                   </div>
                   <div class="col-md-9">
                     <div class="row align-items-center">
@@ -299,10 +263,10 @@
                     </div>
                   </div>
                 </div>
-                <div class="row mb-2 section" *ngIf="item === RulesListEnum.ADJUST_END_SHIFT_BEFORE"
+                <div class="row mb-2 section" *ngIf="item.item_text== RulesListEnum.ADJUST_END_SHIFT_BEFORE"
                   formGroupName="adjustEndBefore">
                   <div class="col-md-3">
-                    <label [for]="item" class="item-label form-label">{{item}} :</label>
+                    <label [for]="item.item_text" class="item-label form-label">{{item.item_text}} :</label>
                   </div>
                   <div class="col-md-9">
                     <div class="row align-items-center">
@@ -330,10 +294,10 @@
                     </div>
                   </div>
                 </div>
-                <div class="row mb-2 section" *ngIf="item === RulesListEnum.ADJUST_END_SHIFT_BEFORE"
+                <div class="row mb-2 section" *ngIf="item.item_text== RulesListEnum.ADJUST_END_SHIFT_BEFORE"
                   formGroupName="adjustEndAfter">
                   <div class="col-md-3">
-                    <label [for]="item" class="item-label form-label">{{item}} :</label>
+                    <label [for]="item.item_text" class="item-label form-label">{{item.item_text}} :</label>
                   </div>
                   <div class="col-md-9">
                     <div class="row align-items-center">
@@ -361,7 +325,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="row mb-2 section" *ngIf="item === RulesListEnum.WARN_PUNCH_COUNT">
+                <div class="row mb-2 section" *ngIf="item.item_text== RulesListEnum.WARN_PUNCH_COUNT">
                   <div class="col-12 d-flex">
                     <div class="item-label form-label">Warn if punches are more than
                       <input type="number" class="form-control inner-input" formControlName="warnPunchCount" [ngClass]="{'is-invalid': warnPunchCount?.invalid && warnPunchCount?.touched,
@@ -370,10 +334,10 @@
                     </div>
                   </div>
                 </div>
-                <div class="row mb-2 section" *ngIf="item === RulesListEnum.CALCULATE_OVERTIME"
+                <div class="row mb-2 section" *ngIf="item.item_text== RulesListEnum.CALCULATE_OVERTIME"
                   formGroupName="overTime">
                   <div class="col-md-3">
-                    <label [for]="item" class="item-label form-label">{{item}} :</label>
+                    <label [for]="item.item_text" class="item-label form-label">{{item.item_text}} :</label>
                   </div>
                   <div class="col-md-9">
                     <div class="row align-items-center">
@@ -401,9 +365,10 @@
                     </div>
                   </div>
                 </div>
-                <div class="row mb-2 section" *ngIf="item === RulesListEnum.PUNCHES_LUNCH" formGroupName="punchesLunch">
+                <div class="row mb-2 section" *ngIf="item.item_text== RulesListEnum.PUNCHES_LUNCH"
+                  formGroupName="punchesLunch">
                   <div class="col-md-3">
-                    <label [for]="item" class="item-label form-label">{{item}} :</label>
+                    <label [for]="item.item_text" class="item-label form-label">{{item.item_text}} :</label>
                   </div>
                   <div class="col-md-9">
                     <div class="row align-items-center">
@@ -446,10 +411,10 @@
                             'is-valid': punchesLunch?.get('lunchBreakLessThan')?.valid}">
                   </div>
                 </div>
-                <div class="row mb-2 section" *ngIf="item === RulesListEnum.TAKE_OUT_LUNCH"
+                <div class="row mb-2 section" *ngIf="item.item_text== RulesListEnum.TAKE_OUT_LUNCH"
                   formGroupName="takeOutLunch">
                   <div class="col-md-3">
-                    <label [for]="item" class="item-label form-label">{{item}} :</label>
+                    <label [for]="item.item_text" class="item-label form-label">{{item.item_text}} :</label>
                   </div>
                   <div class="col-md-9">
                     <div class="row align-items-center">
@@ -476,9 +441,9 @@
                     </div>
                   </div>
                 </div>
-                <div class="row mb-2 section" *ngIf="item === RulesListEnum.INSERT_PUNCH_ROSTER">
+                <div class="row mb-2 section" *ngIf="item.item_text== RulesListEnum.INSERT_PUNCH_ROSTER">
                   <div class="col-md-3">
-                    <label [for]="item" class="item-label form-label">{{item}} :</label>
+                    <label [for]="item.item_text" class="item-label form-label">{{item.item_text}} :</label>
                   </div>
                   <div class="col-md-9">
                     <div class="row align-items-center">
@@ -538,10 +503,10 @@
                     </div>
                   </div>
                 </div>
-                <div class="row mb-2 section" *ngIf="item === RulesListEnum.PAY_PUBLIC_HOLIDAY"
+                <div class="row mb-2 section" *ngIf="item.item_text== RulesListEnum.PAY_PUBLIC_HOLIDAY"
                   formGroupName="payPublicHoliday">
                   <div class="col-md-3">
-                    <label [for]="item" class="item-label form-label">{{item}} :</label>
+                    <label [for]="item.item_text" class="item-label form-label">{{item.item_text}} :</label>
                   </div>
                   <div class="col-md-9">
                     <div class="row align-items-center">
