@@ -66,8 +66,8 @@
               </div>
               <hr>
               <ng-container *ngFor="let item of rulesList.value">
-                <div class="row mb-2 section"
-                  *ngIf="item.item_text.item_text === RulesListEnum.SET_TIMES_NEAREST_MINUTE" formGroupName="setTime">
+                <div class="row mb-2 section" *ngIf="item.item_text === RulesListEnum.SET_TIMES_NEAREST_MINUTE"
+                  formGroupName="setTime">
                   <div class="col-md-3">
                     <label [for]="item.item_text" class="item-label form-label">{{item.item_text}} :</label>
                   </div>
